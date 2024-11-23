@@ -3,6 +3,7 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Navbar from "@/components/Navbar";
 import axios from "axios";
+import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 
 type WeatherData = {
@@ -85,6 +86,8 @@ export default function Home() {
     }
   );
 
+  const firstData = data?.list[0];
+
   console.log("data", data);
 
   if (isLoading)
@@ -96,6 +99,17 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
       <Navbar />
+      <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
+        {/* Today Data */}
+        <section>
+          <div>
+            <div className="flex gap-1 text-2xl items-end">
+              <p>{format(parseISO(firstData?.dt_txt ??''), 'EEEE')}</p>
+              <p>({format(parseISO(firstData?.dt_txt ??''), 'dd.MM.yyyy')})</p>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

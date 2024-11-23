@@ -1,10 +1,12 @@
 import React from 'react';
-import { FaSpinner } from 'react-icons/fa'; // FontAwesome spinner icon
+import { FaSpinner } from 'react-icons/fa'; 
+
 
 type LoadingSpinnerProps = {
   size?: number; // Size of the icon in pixels
   color?: string; // Color of the icon
 };
+
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 40, color = "#3498db" }) => {
   return (
