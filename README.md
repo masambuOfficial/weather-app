@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here’s a tailored README.md file for your weather app project:
 
-## Getting Started
+---
 
-First, run the development server:
+# Weather App 🌤️  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is a weather forecasting application built with [Next.js](https://nextjs.org) and the [OpenWeatherMap API](https://openweathermap.org/). The app provides users with a 5-day weather forecast in hourly intervals for their chosen city.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- View real-time weather data for any city worldwide.
+- Detailed 5-day hourly weather forecasts.
+- Optimized for fast performance using Next.js.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Getting Started  
 
-## Learn More
+### Prerequisites  
 
-To learn more about Next.js, take a look at the following resources:
+1. Ensure you have **Node.js** (v18 or higher) installed.  
+2. Sign up for an API key from [OpenWeatherMap](https://home.openweathermap.org/users/sign_up).  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:  
+   ```bash  
+   git clone https://github.com/your-username/weather-app.git  
+   cd weather-app  
+   ```  
 
-## Deploy on Vercel
+2. Install dependencies:  
+   ```bash  
+   npm install  
+   # or  
+   yarn install  
+   ```  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Create a `.env.local` file in the root directory and add your API key:  
+   ```env  
+   NEXT_PUBLIC_WEATHER_KEY=your_openweathermap_api_key  
+   ```  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Start the development server:  
+   ```bash  
+   npm run dev  
+   # or  
+   yarn dev  
+   ```  
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to access the app.  
+
+## Using the Weather App  
+
+1. Enter the name of a city (e.g., "Pune") in the search bar.  
+2. View the 5-day hourly weather forecast, including temperature, humidity, and wind speed.  
+
+The app uses the following API request to fetch weather data:  
+```javascript  
+const { data } = await axios.get(  
+  `https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`  
+);  
+```  
+- `q`: The city name.  
+- `appid`: Your OpenWeatherMap API key.  
+- `cnt`: Number of time intervals to fetch (56 = 5 days).  
+
+## Project Structure  
+
+- `app/`: Contains the main pages of the application.  
+- `components/`: Reusable UI components for the app.  
+- `styles/`: CSS modules for styling.  
+
+## Learn More  
+
+- [Next.js Documentation](https://nextjs.org/docs)  
+- [OpenWeatherMap API Docs](https://openweathermap.org/api)  
+
+## Deployment  
+
+You can deploy this app using [Vercel](https://vercel.com):  
+
+1. Push your project to a GitHub repository.  
+2. Sign in to [Vercel](https://vercel.com/) and import your repository.  
+3. Set the `NEXT_PUBLIC_WEATHER_KEY` environment variable in the Vercel settings.  
+4. Deploy the app, and you’re good to go!  
+
+## Contributing  
+
+Feel free to submit pull requests or create issues for suggestions and improvements.  
+
+---  
