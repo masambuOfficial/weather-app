@@ -1,4 +1,3 @@
-Here’s a tailored README.md file for your weather app project:
 
 ---
 
