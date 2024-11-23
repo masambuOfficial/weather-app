@@ -1,7 +1,11 @@
 "use client";
 
+import Container from "@/components/Container";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Navbar from "@/components/Navbar";
+import WeatherIcon from "@/components/WeatherIcon";
+import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
+import { getDayorNightIcon } from "@/utils/getDayorNightIcon";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
@@ -80,7 +84,7 @@ export default function Home() {
     "repoData",
     async () => {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`
+        `https://api.openweathermap.org/data/2.5/forecast?q=kampala&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`
       );
       return data;
     }
@@ -101,12 +105,54 @@ export default function Home() {
       <Navbar />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
         {/* Today Data */}
-        <section>
-          <div>
+        <section className="text-black space-y-4">
+          <div className="space-y-2">
             <div className="flex gap-1 text-2xl items-end">
-              <p>{format(parseISO(firstData?.dt_txt ??''), 'EEEE')}</p>
-              <p>({format(parseISO(firstData?.dt_txt ??''), 'dd.MM.yyyy')})</p>
+              <p>{format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}</p>
+              <p className="text-base">
+                ({format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")})
+              </p>
             </div>
+            <Container className="gap-10 px-6 items-center">
+              {/* temperature */}
+              <div className="flex flex-col px-4 w-[]">
+                <span className="text-5xl">
+                  {convertKelvinToCelsius(firstData?.main.temp ?? 0)}°
+                </span>
+                <p className="text-xs space-x-1 whitespace-nowrap">
+                  <span>Feels like</span>
+                  <span>
+                    {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}°
+                  </span>
+                </p>
+                <p className="text-xs space-x-2 whitespace-nowrap">
+                  <span>
+                    {convertKelvinToCelsius(firstData?.main.temp_min ?? 0)} °↓
+                  </span>
+                  <span>
+                    {" "}
+                    {convertKelvinToCelsius(firstData?.main.temp_max ?? 0)} °↑
+                  </span>
+                </p>
+              </div>
+
+              {/* time and weather icon */}
+              <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+                {data?.list.map((d, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col justify-between gap-2 items-center text-xs font-semibold"
+                  >
+                    <p className="whitespace-nowrap">
+                      {format(parseISO(d.dt_txt), "h:mm a")}
+                    </p>
+                    {/* <WeatherIcon iconName={d.weather[0].icon}/> */}
+                    <WeatherIcon iconName={getDayorNightIcon(d.weather[0].icon, d.dt_txt)}/>
+                    <p>{convertKelvinToCelsius(d?.main.temp ?? 0)}°</p>
+                  </div>
+                ))}
+              </div>
+            </Container>
           </div>
         </section>
       </main>
