@@ -104,6 +104,7 @@ export default function Home() {
     <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
       <Navbar />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
+
         {/* Today Data */}
         <section className="text-black space-y-4">
           <div className="space-y-2">
@@ -154,6 +155,29 @@ export default function Home() {
               </div>
             </Container>
           </div>
+          <div className="flex gap-4">
+
+            {/* left */}
+            <Container className="w-fit justify-center flex-col px-4 items-center">
+              <p className="capitalized text-center">{firstData?.weather[0].description}</p>
+              <WeatherIcon iconName={getDayorNightIcon(
+                firstData?.weather[0].icon ?? "", 
+                firstData?.dt_txt ?? ""
+              )}/>
+            </Container>
+
+            {/* right */}
+            <Container 
+              className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto"
+            >
+              
+            </Container>
+          </div>
+        </section>
+
+        {/* 7 Days forecast data */}
+        <section className="flex w-full flex-col gap-4 text-black">
+          <p className="text-2xl">Forecast (7 Days)</p>
         </section>
       </main>
     </div>
