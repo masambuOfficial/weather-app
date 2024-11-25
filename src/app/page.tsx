@@ -3,9 +3,11 @@
 import Container from "@/components/Container";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Navbar from "@/components/Navbar";
+import WeatherDetails from "@/components/WeatherDetails";
 import WeatherIcon from "@/components/WeatherIcon";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
 import { getDayorNightIcon } from "@/utils/getDayorNightIcon";
+import { metersToKilometers } from "@/utils/metersToKilometers";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
@@ -170,7 +172,8 @@ export default function Home() {
             <Container 
               className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto"
             >
-              
+              <WeatherDetails 
+                visability={metersToKilometers(firstData?.visibility ?? 10000)} airPressure={`${firstData?.main.pressure} hPa`}/>
             </Container>
           </div>
         </section>
