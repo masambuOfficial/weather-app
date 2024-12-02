@@ -9,7 +9,7 @@ import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
 import { getDayorNightIcon } from "@/utils/getDayorNightIcon";
 import { metersToKilometers } from "@/utils/metersToKilometers";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 
 type WeatherData = {
@@ -173,7 +173,18 @@ export default function Home() {
               className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto"
             >
               <WeatherDetails 
-                visability={metersToKilometers(firstData?.visibility ?? 10000)} airPressure={`${firstData?.main.pressure} hPa`}/>
+                visability={metersToKilometers(firstData?.visibility ?? 10000)} airPressure={`${firstData?.main.pressure} hPa`}
+                humidity={`${firstData?.main.humidity}%`}
+                sunrise={format(
+                  fromUnixTime(data?.city.sunrise ?? 1732505631), 
+                  "H:mm"
+                )}
+                sunset={format(
+                  fromUnixTime(data?.city.sunset ?? 1732505631), 
+                  "H:mm"
+                )}
+                windSpeed=""
+              />
             </Container>
           </div>
         </section>
